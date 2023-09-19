@@ -20,7 +20,7 @@ class Connection:
 
         EntryIP=tk.Entry(frame_connection)
         EntryIP.delete(0, 'end')
-        EntryIP.insert(0, '127.0.0.1')
+        EntryIP.insert(0, '127.0.0.0') #192.168.29.144
         EntryIP.place(x=160,y=40,width=231,height=30)
         self.EntryIP = EntryIP
 
@@ -40,13 +40,11 @@ class Connection:
         GButton_956.place(x=40,y=200,width=100,height=30)
         GButton_956["command"] = self.test
 
-        # GMessage_968=tk.Message(frame_connection)
-        # GMessage_968["text"] = "Message"
-        # GMessage_968.place(x=40,y=260,width=509,height=212)
     def test(self):
         self.log.text("Testing *IDN? ...")
         self.send('*IDN?')
-
+        self.receive()
+        
     def connect(self):
         try:
             self.vna = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -66,10 +64,10 @@ class Connection:
             self.log.text("Data could not be sent!")
 
     def receive(self, x = True):
-        print("<<<<", output)
         try:
             self.vna.settimeout(2)
             output = self.vna.recv(2056).decode().rstrip('\n')
+            print("<<<<", output)
             if x == True:
                 self.log.text(output)
             return output

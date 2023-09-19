@@ -17,9 +17,10 @@ def tabClick(event):
         setCurrentTabInstance(calibration)
     elif tabName == 'Q Measurement':
         setCurrentTabInstance(qmeasure)
-    else:
-        setCurrentTabInstance(False)
 
 notebook.bind('<<NotebookTabChanged>>', tabClick)
+
+setCurrentTabInstance(connection)
+calstatus.check()
 
 window.mainloop()

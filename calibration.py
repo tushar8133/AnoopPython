@@ -3,6 +3,7 @@ import time
 from window import frame_calibration
 from connection import connection
 from log import Log
+from calstatus import calstatus
 
 class Calibration:
     def __init__(self):
@@ -68,9 +69,7 @@ class Calibration:
         self.btnApplyCal = btnApplyCal
         btnApplyCal["text"] = "APPLY CAL "
         btnApplyCal.place(x=220, y=220, width=150, height=30)
-        btnApplyCal["command"] = lambda:(self.caldone())
-        # btnApplyCal["command"] = lambda:(self.caldone(), calstatus())
-        #self.calstatus()
+        btnApplyCal["command"] = lambda:(self.caldone(), calstatus.presetAndCheck())
 
     def calibration(self):
         connection.send("SENS1:CORR:COEF:FULL2")

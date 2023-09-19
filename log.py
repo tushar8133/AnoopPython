@@ -15,5 +15,5 @@ class Log:
         all = str(x) + str(y) + '\n'
         self.widget.insert('end', all)
         self.widget['state'] = 'disabled'
-        window.update()
-        window.update_idletasks()
+        # window.update()
+        # window.update_idletasks()

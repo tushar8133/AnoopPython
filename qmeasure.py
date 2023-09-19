@@ -1,3 +1,4 @@
+import math
 import time
 import tkinter as tk
 from window import frame_qmeasurement
@@ -14,15 +15,6 @@ class QMeasure:
         GButton_150["text"] = "Start"
         GButton_150.place(x=20,y=20,width=81,height=30)
         GButton_150["command"] = self.start
-
-
-        # messageBox=tk.Label(frame_qmeasurement)
-        # messageBox["text"] = ""
-        # messageBox["font"] = tkFont.Font(size=23)
-        # messageBox["justify"] = "left"
-        # messageBox.place(x=20,y=70,width=600,height=396)
-        # self.messageBox = messageBox
-
     
     def start(self):
         print("Q Measurement Started")
@@ -41,24 +33,21 @@ class QMeasure:
         connection.send("DISP:WIND1:TRAC1:SIZ MAX")
         connection.send("CALC1:MARK:X?")
         frequency = connection.receive(False) or 0.0
-        print('Frequency:', frequency)
-        frequencyMHz = float(frequency) / 1000000000
-        print('Frequency In MHz:', frequencyMHz)
+        peakFrequency = self.calculatePeakFq(frequency)
         connection.send("CALC1:MARK:SEA:BAND:DATA?")
-        combinedData = connection.receive(False) or '0,0,0,0'
+        combinedData = connection.receive(False) or "3.09327738688E+009,7.72990113024E+009,2.498936E+000,-5.778590E+000,1.00000000000E+006"
         separatedData = combinedData.split(',')
         loadedQFactor = float(separatedData[2])
         couplingS21 = separatedData[3]  # CALC1:PAR1:MARK1:Y?
-        unloadedQ = loadedQFactor * (1 + frequencyMHz / 100)
-        peakFrequency = self.calculatePeakFq(frequency)
-        
+        power = float(couplingS21) / 20
+        unloadedQ = loadedQFactor * (1 / (1 - math.pow(10, power)))
 
-        # self.messageBox['text'] = ''
         summary = f'''
-Loaded Q Factor: {loadedQFactor}
-Coupling S21: {couplingS21}
-Unloaded Q: {unloadedQ}
-Peak Frequency: {peakFrequency}'''
+        Frequency: {frequency} Hz
+        Peak Frequency: {peakFrequency}
+        Loaded Q Factor: {loadedQFactor}
+        Coupling S21: {couplingS21}
+        Unloaded Q: {unloadedQ}'''
         self.log.text(summary)
 
         time.sleep(2)
