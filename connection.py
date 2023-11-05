@@ -8,7 +8,7 @@ class Connection:
 
         self.vna = False
 
-        self.log = Log(frame_connection, { 'x':40, 'y':260, 'w':470, 'h':150 })
+        self.log = Log(frame_connection, { 'x':40, 'y':260, 'w':520, 'h':150 })
 
         GLabel_133=tk.Label(frame_connection)
         GLabel_133["text"] = "IP ADDRESS"
@@ -20,7 +20,7 @@ class Connection:
 
         EntryIP=tk.Entry(frame_connection)
         EntryIP.delete(0, 'end')
-        EntryIP.insert(0, '127.0.0.0') #192.168.29.144
+        EntryIP.insert(0, '127.0.0.1') #192.168.29.144
         EntryIP.place(x=160,y=40,width=231,height=30)
         self.EntryIP = EntryIP
 

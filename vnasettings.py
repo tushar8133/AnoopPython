@@ -7,59 +7,67 @@ class VnaSetting:
 
     def __init__(self):
 
-        self.log = Log(frame_vna_settings, { 'x':40, 'y':260, 'w':470, 'h':150 })
-        
+        self.log = Log(frame_vna_settings, { 'x':65, 'y':310, 'w':485, 'h':100 })
+
+        L_PeakFr = tk.Label(frame_vna_settings, borderwidth='1px', relief='groove')
+        L_PeakFr["justify"] = "center"
+        L_PeakFr.place(x=65, y=90, width=470, height=155)
+
         E_StartFr=tk.Entry(frame_vna_settings)
         self.E_StartFr = E_StartFr
         E_StartFr["borderwidth"] = "1px"
         E_StartFr["fg"] = "#333333"
         E_StartFr["justify"] = "center"
-        E_StartFr.place(x=140,y=150,width=70,height=25)
+        E_StartFr.place(x=155, y=125, width=70, height=25)
 
-        L_StartFr = tk.Label(frame_vna_settings)
+        L_StartFr = tk.Label(frame_vna_settings, borderwidth='1px', relief='groove')
         L_StartFr["justify"] = "center"
+        L_StartFr["bg"] = "#b9dcb9"
         L_StartFr["text"] = "Start Fr"
-        L_StartFr.place(x=70, y=150, width=70, height=25)
+        L_StartFr.place(x=85, y=125, width=70, height=25)
 
         E_StopFr=tk.Entry(frame_vna_settings)
         self.E_StopFr = E_StopFr
         E_StopFr["borderwidth"] = "1px"
         E_StopFr["fg"] = "#333333"
         E_StopFr["justify"] = "center"
-        E_StopFr.place(x=420,y=150,width=70,height=25)
+        E_StopFr.place(x=435, y=125, width=70, height=25)
 
-        L_StopFr=tk.Label(frame_vna_settings)
+        L_StopFr=tk.Label(frame_vna_settings, borderwidth='1px', relief='groove')
         L_StopFr["justify"] = "center"
+        L_StopFr["bg"] = "#b9dcb9"
         L_StopFr["text"] = "Stop Fr"
-        L_StopFr.place(x=350,y=150,width=70,height=25)
+        L_StopFr.place(x=365, y=125, width=70, height=25)
 
         E_Ifbw=tk.Entry(frame_vna_settings)
         self.E_Ifbw = E_Ifbw
         E_Ifbw["borderwidth"] = "1px"
         E_Ifbw["fg"] = "#333333"
         E_Ifbw["justify"] = "center"
-        E_Ifbw.place(x=140,y=200,width=70,height=25)
+        E_Ifbw.place(x=155, y=200, width=70, height=25)
 
-        L_Ifbw=tk.Label(frame_vna_settings)
+        L_Ifbw=tk.Label(frame_vna_settings, borderwidth='1px', relief='groove')
         L_Ifbw["justify"] = "center"
+        L_Ifbw["bg"] = "#b9dcb9"
         L_Ifbw["text"] = "IFBW"
-        L_Ifbw.place(x=70,y=200,width=70,height=25)
+        L_Ifbw.place(x=85, y=200, width=70, height=25)
 
         E_Dp=tk.Entry(frame_vna_settings)
         self.E_Dp = E_Dp
         E_Dp["borderwidth"] = "1px"
         E_Dp["fg"] = "#333333"
         E_Dp["justify"] = "center"
-        E_Dp.place(x=420,y=200,width=70,height=25)
+        E_Dp.place(x=435, y=200, width=70, height=25)
 
-        L_Dp=tk.Label(frame_vna_settings)
+        L_Dp=tk.Label(frame_vna_settings, borderwidth='1px', relief='groove')
         L_Dp["justify"] = "center"
+        L_Dp["bg"] = "#b9dcb9"
         L_Dp["text"] = "Datapoint"
-        L_Dp.place(x=350,y=200,width=70,height=25)
+        L_Dp.place(x=365, y=200, width=70, height=25)
 
-        tkVNAset = tk.Button(frame_vna_settings)
+        tkVNAset=tk.Button(frame_vna_settings)
         tkVNAset["text"] = "Enter Setting"
-        tkVNAset.place(x=30, y=80, width=150, height=30)
+        tkVNAset.place(x=30, y=30, width=150, height=30)
         tkVNAset["command"] = self.start
 
 

@@ -6,7 +6,7 @@ from tkinter import scrolledtext
 def connectSocket():
     global vna
     vna = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    ip = "10.211.55.3"
+    ip = "127.0.0.1"
     port = 5001
     vna.connect((ip, port))
     display("SOCKET CONNECTED AT, " + str(ip) + ", " + str(port))

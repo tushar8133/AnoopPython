@@ -9,7 +9,7 @@ class CalStatus:
         btnCalStatus = tk.Button(container)
         self.btnCalStatus = btnCalStatus
         # btnCalStatus["bg"] = "#61e827"
-        btnCalStatus.place(x=475, y=70, width=70, height=30)
+        btnCalStatus.place(x=510, y=70, width=60, height=30)
         btnCalStatus["text"] = "CAL STATS"
         btnCalStatus["command"] = self.check
 
@@ -17,7 +17,7 @@ class CalStatus:
         GButton_417["justify"] = "center"
         GButton_417["bg"] = "#819df9"
         GButton_417["text"] = "PRESET"
-        GButton_417.place(x=475, y=30, width=70, height=30)
+        GButton_417.place(x=510, y=30, width=60, height=30)
         GButton_417["command"] = self.presetAndCheck
 
     def presetAndCheck(self):

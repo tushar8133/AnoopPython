@@ -4,6 +4,7 @@ from vnasettings import vnasetting
 from calibration import calibration
 from qmeasure import qmeasure
 from calstatus import calstatus
+from livetrace import livetrace
 
 def tabClick(event):
     # notebook.index(notebook.select())
@@ -15,8 +16,12 @@ def tabClick(event):
         setCurrentTabInstance(vnasetting)
     elif tabName == 'Calibration':
         setCurrentTabInstance(calibration)
-    elif tabName == 'Q Measurement':
+    elif tabName == 'Measurement':
         setCurrentTabInstance(qmeasure)
+    elif tabName == 'GUI':
+        setCurrentTabInstance(qmeasure)
+    elif tabName == 'Live Trace':
+        setCurrentTabInstance(livetrace)
 
 notebook.bind('<<NotebookTabChanged>>', tabClick)
 
