@@ -1,4 +1,4 @@
-import tkinter as tk   
+import tkinter as tk
 import time
 from window import frame_calibration
 from connection import connection
@@ -7,111 +7,119 @@ from calstatus import calstatus
 
 class Calibration:
     def __init__(self):
+        self.log = Log(frame_calibration, {'x': 65, 'y': 330, 'w': 485, 'h': 100})
 
-        self.log = Log(frame_calibration, { 'x':65, 'y':310, 'w':485, 'h':100  })
-        
-        '''btnCalStatus = tk.Button(frame_calibration)
-        self.btnCalStatus = btnCalStatus
-        # btnCalStatus["bg"] = "#61e827"
-        btnCalStatus.place(x=475, y=70, width=70, height=30)
-        btnCalStatus["text"] = "CAL STATS"
-        btnCalStatus["command"] = self.calstatus'''
+        L_PeakFr = tk.Label(frame_calibration, borderwidth='1px', relief='groove')
+        L_PeakFr["justify"] = "center"
+        L_PeakFr.place(x=72, y=80, width=165, height=130)
+
+        L_PeakFr = tk.Label(frame_calibration, borderwidth='1px', relief='groove')
+        L_PeakFr["justify"] = "center"
+        L_PeakFr.place(x=352, y=80, width=165, height=130)
+
+        L_PeakFr = tk.Label(frame_calibration, borderwidth='1px', relief='groove')
+        L_PeakFr["justify"] = "center"
+        L_PeakFr.place(x=72, y=225, width=445, height=40)
 
         btnStartCal = tk.Button(frame_calibration)
         self.btnStartCal = btnStartCal
-        btnStartCal["text"] = "Start Cal"
+        btnStartCal["text"] = "Start WG Cal"
         btnStartCal.place(x=30, y=30, width=150, height=30)
         btnStartCal["command"] = self.calibration
 
         btnOpen1 = tk.Button(frame_calibration)
         self.btnOpen1 = btnOpen1
-        btnOpen1["text"] = "Port 1: OPEN"
+        btnOpen1["text"] = "Port 1: 1/8 SHORT"
         btnOpen1.place(x=80, y=90, width=150, height=30)
-        btnOpen1["command"] = self.open1
+        btnOpen1["command"] = self.P1short1_8
 
         btnShort1 = tk.Button(frame_calibration)
         self.btnShort1 = btnShort1
-        btnShort1["text"] = "Port 1: SHORT"
+        btnShort1["text"] = "Port 1: 3/8 SHORT"
         btnShort1.place(x=80, y=130, width=150, height=30)
-        btnShort1["command"] = self.short1
+        btnShort1["command"] = self.P1short3_8
 
         btnLoad1 = tk.Button(frame_calibration)
         self.btnLoad1 = btnLoad1
         btnLoad1["text"] = "Port 1: LOAD"
         btnLoad1.place(x=80, y=170, width=150, height=30)
-        btnLoad1["command"] = self.load1
+        btnLoad1["command"] = self.P1load
 
         btnOpen2 = tk.Button(frame_calibration)
         self.btnOpen2 = btnOpen2
-        btnOpen2["text"] = "Port 2: OPEN"
+        btnOpen2["text"] = "Port 2: 1/8 SHORT"
         btnOpen2.place(x=360, y=90, width=150, height=30)
-        btnOpen2["command"] = self.open2
+        btnOpen2["command"] = self.P2short1_8
 
         btnShort2 = tk.Button(frame_calibration)
         self.btnShort2 = btnShort2
-        btnShort2["text"] = "Port 2: SHORT"
+        btnShort2["text"] = "Port 2: 3/8 SHORT"
         btnShort2.place(x=360, y=130, width=150, height=30)
-        btnShort2["command"] = self.short2
+        btnShort2["command"] = self.P2short3_8
 
         btnLoad2 = tk.Button(frame_calibration)
         self.btnLoad2 = btnLoad2
         btnLoad2["text"] = "Port 2: LOAD"
         btnLoad2.place(x=360, y=170, width=150, height=30)
-        btnLoad2["command"] = self.load2
+        btnLoad2["command"] = self.P2load
 
         btnCalibration = tk.Button(frame_calibration)
         self.btnCalibration = btnCalibration
         btnCalibration["text"] = "Port 1-2: THRU"
-        btnCalibration.place(x=220, y=210, width=150, height=30)
+        btnCalibration.place(x=220, y=230, width=150, height=30)
         btnCalibration["command"] = self.thru
 
         btnApplyCal = tk.Button(frame_calibration)
         self.btnApplyCal = btnApplyCal
         btnApplyCal["text"] = "APPLY CAL "
-        btnApplyCal.place(x=220, y=250, width=150, height=30)
-        btnApplyCal["command"] = lambda:(self.caldone(), calstatus.check())
+        btnApplyCal.place(x=220, y=280, width=150, height=30)
+        btnApplyCal["command"] = lambda: (self.caldone(), calstatus.check())
 
     def calibration(self):
         self.btnStartCal['bg'] = '#b8ffd7'
         connection.send("SENS1:CORR:COEF:FULL2")
         connection.send("SENS1:CORR:COEF:PORT12:FULL2")
-        self.log.text("Connect OPEN at Port1")
+        time.sleep(.2)
+        connection.send("SENS1:CORR:COLL:METH SSLT")
+        time.sleep(.2)
+        connection.send("SENS1:CORR:COLL:LINE WAVE")
+        self.log.text("Connect 1/8 waveguide SHORT at port 1 ?")
         time.sleep(1.2)
 
-    def open1(self):
+    def P1short1_8(self):
         self.btnOpen1['bg'] = '#b8ffd7'
-        self.log.text("Connect SHORT at Port1 ?")
-        connection.send("SENS1:CORR:COLL:PORT1:OPEN")
+        connection.send("SENS1:CORR:COLL:PORT1:SHORT1")
+        self.log.text("Connect 3/8 waveguide SHORT at port 1 ?")
         time.sleep(3)
 
-    def short1(self):
+    def P1short3_8(self):
         self.btnShort1['bg'] = '#b8ffd7'
-        self.log.text("Connect LOAD at Port1 ?")
-        connection.send("SENS1:CORR:COLL:PORT1:SHORT")
+        connection.send("SENS1:CORR:COLL:PORT1:SHORT2")
+        self.log.text("Connect waveguide LOAD at Port1 ?")
         time.sleep(3)
 
-    def load1(self):
+    def P1load(self):
         self.btnLoad1['bg'] = '#b8ffd7'
-        self.log.text("Connect OPEN at Port2 ?")
-        connection.send("SENS1:CORR:COLL:PORT1:LOAD")
+        connection.send("SENS1:CORR:COLL:PORT1:LOAD1")
+        self.log.text("Connect 1/8 waveguide SHORT at port 2 ?")
         time.sleep(3)
 
-    def open2(self):
+    def P2short1_8(self):
         self.btnOpen2['bg'] = '#b8ffd7'
-        self.log.text("Connect SHORT at Port2 ?")
-        connection.send("SENS1:CORR:COLL:PORT2:OPEN")
+        connection.send("SENS1:CORR:COLL:PORT2:SHORT1")
+        self.log.text("Connect 3/8 waveguide SHORT at port 2 ?")
         time.sleep(3)
 
-    def short2(self):
+    def P2short3_8(self):
         self.btnShort2['bg'] = '#b8ffd7'
-        self.log.text("Connect LOAD at Port2 ?")
-        connection.send("SENS1:CORR:COLL:PORT2:SHORT")
+        connection.send("SENS1:CORR:COLL:PORT2:SHORT2")
+        self.log.text("Connect waveguide LOAD at Port2 ?")
         time.sleep(3)
 
-    def load2(self):
+    def P2load(self):
         self.btnLoad2['bg'] = '#b8ffd7'
-        self.log.text("Connect THRU Port 1-2 ?")
         connection.send("SENS1:CORR:COLL:PORT2:LOAD")
+        self.log.text("Connect THRU Port 1-2 ?")
         time.sleep(3)
 
     def thru(self):

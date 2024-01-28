@@ -8,8 +8,8 @@ class CalStatus:
         
         btnCalStatus = tk.Button(container)
         self.btnCalStatus = btnCalStatus
-        # btnCalStatus["bg"] = "#61e827"
-        btnCalStatus.place(x=510, y=70, width=60, height=30)
+        btnCalStatus["bg"] = "#61e827"
+        btnCalStatus.place(x=510, y=55, width=60, height=25)
         btnCalStatus["text"] = "CAL STATS"
         btnCalStatus["command"] = self.check
 
@@ -17,7 +17,7 @@ class CalStatus:
         GButton_417["justify"] = "center"
         GButton_417["bg"] = "#819df9"
         GButton_417["text"] = "PRESET"
-        GButton_417.place(x=510, y=30, width=60, height=30)
+        GButton_417.place(x=510, y=25, width=60, height=25)
         GButton_417["command"] = self.presetAndCheck
 
     def presetAndCheck(self):
@@ -45,8 +45,6 @@ class CalStatus:
         time.sleep(3)
         box.log.text("Preset Complete!")
         connection.send("RTL")
-
-
 
 calstatus = CalStatus(window)
 # calstatus.check()

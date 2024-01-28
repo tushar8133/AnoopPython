@@ -5,6 +5,8 @@ from calibration import calibration
 from qmeasure import qmeasure
 from calstatus import calstatus
 from livetrace import livetrace
+from ORIG_NRW import nrw_ori
+from NPL_NRW import nrw
 
 def tabClick(event):
     # notebook.index(notebook.select())
@@ -16,12 +18,14 @@ def tabClick(event):
         setCurrentTabInstance(vnasetting)
     elif tabName == 'Calibration':
         setCurrentTabInstance(calibration)
-    elif tabName == 'Measurement':
-        setCurrentTabInstance(qmeasure)
-    elif tabName == 'GUI':
-        setCurrentTabInstance(qmeasure)
     elif tabName == 'Live Trace':
         setCurrentTabInstance(livetrace)
+    elif tabName == 'Q Measurement':
+        setCurrentTabInstance(qmeasure)
+    elif tabName == 'NRW-ORI':
+        setCurrentTabInstance(nrw_ori)
+    elif tabName == 'NRW-NPL':
+        setCurrentTabInstance(nrw)
 
 notebook.bind('<<NotebookTabChanged>>', tabClick)
 
