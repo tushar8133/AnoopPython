@@ -12,7 +12,7 @@ import math
 from connection import connection
 import os
 import time
-from common import defaultPauseTime, defaultWinUpdateTime
+from common import defaultPauseTime, defaultWinUpdateTime, getCutOffFreq
 
 class NRW:
     def __init__(self):
@@ -150,6 +150,7 @@ class NRW:
         self.graph_electrical = []
         self.graph_loss = []
         self.graph_frequency = []
+        _fc = float(getCutOffFreq())  # '6.557e9' user input cutoff frequency #Ghz conversion???
 
         for i in range(self.totalPoints):
             _complex_s11 = self.data.s[i:(i+1),0,0][0]
@@ -166,7 +167,6 @@ class NRW:
             elif _ag1 <= 1:
                 _gm3 = _gm1
 
-
             L = float(self.E_Thickness.get()) #user input thickness of material
             t = (_complex_s11+ _complex_s21 - _gm3)/(1-((_complex_s11 + _complex_s21) * _gm3))
             tx = np.log(1/t)
@@ -177,7 +177,6 @@ class NRW:
             _fq = self.data.f[i:(i+1)]
             self.graph_frequency.append(_fq[0]/1000000000)
             _lambda = _c / _fq
-            _fc = 6.557e9  # user input cutoff frequency #Ghz conversion???
             _lc = _c/_fc
             _a = 1/np.square(_lc)
 

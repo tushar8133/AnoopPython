@@ -12,7 +12,7 @@ from tkinter import Button
 from pathlib import Path
 import os
 import time
-from common import defaultPauseTime, defaultWinUpdateTimer
+from common import defaultPauseTime, defaultWinUpdateTime
 
 class LiveTrace:
     def __init__(self):
@@ -62,7 +62,7 @@ class LiveTrace:
         print("drawing done...")
         if self.running:
             self.counter = self.counter + 1
-            window.after(defaultWinUpdateTimer, self.store_file)
+            window.after(defaultWinUpdateTime, self.store_file)
             # window.update()
             # self.store_file()
 

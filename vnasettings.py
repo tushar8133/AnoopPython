@@ -2,6 +2,8 @@ import tkinter as tk
 from window import frame_vna_settings
 from connection import connection
 from log import Log
+from common import setCutOffFreq
+import re
 
 class VnaSetting:
 
@@ -70,6 +72,46 @@ class VnaSetting:
         tkVNAset.place(x=30, y=30, width=150, height=30)
         tkVNAset["command"] = self.start
 
+        self.ddOptions = [
+            "WR187 (3.95 - 5.85) GHz",
+            "WR137 (5.85 - 8.20) GHz",
+            "WR90 (8.20 - 12.40) GHz",
+            "WR62 (12.40 - 18) GHz",
+            "WR42 (18.00 - 26.50) GHz",
+        ]
+        self.ddValue = tk.StringVar()
+        self.ddValue.set("")
+        self.ddValue.trace_add('write', self.ddListener)
+        ddMenu = tk.OptionMenu( frame_vna_settings , self.ddValue , *self.ddOptions )
+        ddMenu.place(x=210, y=260)
+    
+    def now(self):
+        if (self.ddValue.get() == ""):
+            self.ddValue.set(self.ddOptions[2])
+
+    def ddListener(self, *args):
+        self.setCutoffAndBand(self.ddValue.get())
+
+    def setCutoffAndBand(self, fullband):
+        regex = re.compile(r"^(WR.+)\s\((?<=\()(.+)\s-\s(.+)(?=\))")
+        result = re.search(regex, fullband)
+        band = result[1]
+        cutoff = '6.557e9'
+        if (band == 'WR187'):
+            cutoff = '3.153e9'
+        elif (band == 'WR137'):
+            cutoff = '4.301e9'
+        elif (band == 'WR90'):
+            cutoff = '6.557e9'
+        elif (band == 'WR62'):
+            cutoff = '9.488e9'
+        elif (band == 'WR42'):
+            cutoff = '14.051e9'
+        print(">>>>>>>>>>>", band, result[2], result[3], cutoff)
+        setCutOffFreq(cutoff)
+        connection.send("SENS1:FREQ:STAR "+result[2]+"e9")
+        connection.send("SENS1:FREQ:STOP "+result[3]+"e9")
+    
 
     def start(self):
         self.log.text("Staring...")

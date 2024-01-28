@@ -16,6 +16,7 @@ def tabClick(event):
         setCurrentTabInstance(connection)
     elif tabName == 'VNA Setting':
         setCurrentTabInstance(vnasetting)
+        vnasetting.now()
     elif tabName == 'Calibration':
         setCurrentTabInstance(calibration)
     elif tabName == 'Live Trace':

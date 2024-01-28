@@ -1,9 +1,9 @@
 
 
-defaultPauseTime = 0.1
+defaultPauseTime = 0.5
 defaultWinUpdateTime = 10
 
-cutOffFreq = 6.557e9
+cutOffFreq = '6.557e9'
 
 def setCutOffFreq(x):
     global cutOffFreq

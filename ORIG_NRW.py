@@ -12,7 +12,7 @@ import math
 from connection import connection
 import os
 import time
-from common import defaultPauseTime, defaultWinUpdateTime
+from common import defaultPauseTime, defaultWinUpdateTime, getCutOffFreq
 
 class NRW_ORI:
     def __init__(self):
@@ -147,8 +147,8 @@ class NRW_ORI:
         self.graph_electrical = []
         self.graph_loss = []
         self.graph_frequency = []
+        _fc = float(getCutOffFreq())  # '6.557e9' user input cutoff frequency #Ghz conversion???
         for i in range(self.totalPoints):
-            _fc = 6.557e9  # user input cutoff frequency #Ghz conversion???
             # print("_fc", _fc)
             L = float(self.EO_L.get())  # user input thickness of material
             # print("L", L)

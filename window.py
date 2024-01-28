@@ -38,8 +38,8 @@ notebook.add(frame_calibration, text ='Calibration')
 notebook.add(frame_livetrace, text ='Live Trace')
 # notebook.add(frame_marker, text ='Set Marker')
 # notebook.add(frame_commands, text ='Commands')
-notebook.add(frame_nrw_ori, text ='NRW-ORI')
 notebook.add(frame_nrw, text ='NRW-NPL')
+notebook.add(frame_nrw_ori, text ='NRW-ORI')
 
 def setCurrentTabInstance(x):
     global currentTabInstance
