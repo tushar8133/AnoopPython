@@ -12,6 +12,7 @@ import math
 from connection import connection
 import os
 import time
+from common import defaultPauseTime, defaultWinUpdateTime
 
 class NRW_ORI:
     def __init__(self):
@@ -87,14 +88,14 @@ class NRW_ORI:
         print("drawing done...")
         if self.running:
             self.counter = self.counter + 1
-            window.after(10, self.store_file)
+            window.after(defaultWinUpdateTime, self.store_file)
 
     def store_file(self):
         if os.path.isfile(self.full_path):
             os.remove(self.full_path)
         connection.send("MMEM:STOR '" + self.full_path + "'")
         while not os.path.exists(self.full_path):
-            time.sleep(0.01)
+            time.sleep(defaultPauseTime)
         if os.path.isfile(self.full_path):
             print(">>>> file saved ")
             self.plot_graphs()
@@ -110,7 +111,7 @@ class NRW_ORI:
             self.data = Network(self.full_path)
         except:
             print("Problem in reading file")
-            time.sleep(0.01)
+            time.sleep(defaultPauseTime)
             self.plot_graphs()
 
         self.totalPoints = int(self.data.s.size / 4)

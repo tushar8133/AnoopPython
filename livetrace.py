@@ -12,7 +12,7 @@ from tkinter import Button
 from pathlib import Path
 import os
 import time
-
+from common import defaultPauseTime, defaultWinUpdateTimer
 
 class LiveTrace:
     def __init__(self):
@@ -62,7 +62,7 @@ class LiveTrace:
         print("drawing done...")
         if self.running:
             self.counter = self.counter + 1
-            window.after(10, self.store_file)
+            window.after(defaultWinUpdateTimer, self.store_file)
             # window.update()
             # self.store_file()
 
@@ -71,7 +71,7 @@ class LiveTrace:
             os.remove(self.full_path)
         connection.send("MMEM:STOR '" + self.full_path + "'")
         while not os.path.exists(self.full_path):
-            time.sleep(0.01)
+            time.sleep(defaultPauseTime)
         if os.path.isfile(self.full_path):
             print(">>>> file saved ")
             self.plot_graphs()
@@ -86,7 +86,7 @@ class LiveTrace:
             self.data = Network(self.full_path)
         except:
             print("Problem in reading file")
-            time.sleep(0.01)
+            time.sleep(defaultPauseTime)
             self.plot_graphs()
 
         axes1.clear()
