@@ -4,7 +4,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 import skrf as rf
 rf.stylely()
-from window import frame_nrw_ori, window
+from window import frame_nrw_ori, window, enableTabs
 from tkinter import Button
 import tkinter as tk
 from pathlib import Path
@@ -78,7 +78,9 @@ class NRW_ORI:
         if self.running:
             self.running = False
             self.b1['text'] = 'Start'
+            enableTabs(True)
         else:
+            enableTabs([5])
             self.counter = 0
             self.running = True
             self.b1['text'] = 'Stop'
