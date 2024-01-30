@@ -5,7 +5,7 @@ import matplotlib.animation as animation
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 import skrf as rf
 rf.stylely()
-from window import frame_nrw, window
+from window import frame_nrw, window, enableTabs
 import tkinter as tk
 from pathlib import Path
 import math
@@ -82,7 +82,9 @@ class NRW:
         if self.running:
             self.running = False
             self.b1['text'] = 'Start'
+            enableTabs(True)
         else:
+            enableTabs([4])
             self.counter = 0
             self.running = True
             self.b1['text'] = 'Stop'
