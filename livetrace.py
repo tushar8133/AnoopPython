@@ -6,7 +6,7 @@ import numpy as np
 from skrf import Network, Frequency
 import skrf as rf
 rf.stylely()
-from window import frame_livetrace, window
+from window import frame_livetrace, window, enableTabs
 from connection import connection
 from tkinter import Button
 from pathlib import Path
@@ -52,7 +52,9 @@ class LiveTrace:
         if self.running:
             self.running = False
             self.b1['text'] = 'Start'
+            enableTabs(True)
         else:
+            enableTabs([3])
             self.counter = 0
             self.running = True
             self.b1['text'] = 'Stop'
