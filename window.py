@@ -47,3 +47,13 @@ def setCurrentTabInstance(x):
 
 def getCurrentTabInstance():
     return currentTabInstance
+
+
+def enableTabs(x):
+    if x == True:
+        for i in range(6):
+            notebook.tab(i, state="normal")
+    else:
+        for i in range(6):
+            status = 'normal' if x.__contains__(i) else 'disabled'
+            notebook.tab(i, state=status)
