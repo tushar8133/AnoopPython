@@ -13,6 +13,7 @@ from connection import connection
 import os
 import time
 from common import defaultPauseTime, defaultWinUpdateTime, getCutOffFreq
+from scipy import signal
 
 class NRW_ORI:
     def __init__(self):
@@ -60,12 +61,12 @@ class NRW_ORI:
         global axes1
         global axes2
         global axes3
-        #global axes4
+        global axes4
 
         axes1 = figure.add_subplot(221); axes1.grid()
         axes2 = figure.add_subplot(222); axes2.grid()
         axes3 = figure.add_subplot(223); axes3.grid()
-        #axes4 = figure.add_subplot(224); axes4.grid()
+        axes4 = figure.add_subplot(224); axes4.grid()
 
         # Create Canvas
         global canvas
@@ -127,7 +128,7 @@ class NRW_ORI:
         axes1.clear()
         axes2.clear()
         axes3.clear()
-        #axes4.clear()
+        axes4.clear()
 
         self.calculate_data()
 
@@ -140,7 +141,11 @@ class NRW_ORI:
         axes2.set(xlabel="frequency", ylabel="Epsl")
 
         axes3.plot(self.graph_frequency, self.graph_loss, color = 'red')
-        #axes4.plot(self.graph_loss)
+
+        # magnetic = signal.savgol_filter(self.graph_magnetic, window_length=51, polyorder=10, mode="nearest")
+        magnetic = signal.savgol_filter(self.graph_magnetic, 71, 1)
+        axes4.set_ylim(0, 15)
+        axes4.plot(self.graph_frequency, magnetic, color = "green")
 
         canvas.draw()
 
