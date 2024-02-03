@@ -45,7 +45,7 @@ class LiveTrace:
         # Create Canvas
         global canvas
         canvas = FigureCanvasTkAgg(figure, master=frame_livetrace)
-        canvas.get_tk_widget().pack(side='top', fill='both')
+        canvas.get_tk_widget().pack(side='left', fill='both')
         canvas.mpl_connect('draw_event', self.drawing_done)
 
     def toggle(self):

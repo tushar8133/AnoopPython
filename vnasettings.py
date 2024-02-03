@@ -83,7 +83,7 @@ class VnaSetting:
         self.ddValue.set("")
         self.ddValue.trace_add('write', self.ddListener)
         ddMenu = tk.OptionMenu( frame_vna_settings , self.ddValue , *self.ddOptions )
-        ddMenu.place(x=210, y=260)
+        ddMenu.place(x=210, y=30)
     
     def now(self):
         if (self.ddValue.get() == ""):

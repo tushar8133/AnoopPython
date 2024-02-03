@@ -27,7 +27,7 @@ class NRW_ORI:
         self.frame1 = tk.LabelFrame(frame_nrw_ori)
         self.frame1.pack(side="top", fill="x", expand=False)
         self.frame2 = tk.LabelFrame(frame_nrw_ori)
-        self.frame2.pack(side="top", fill="both", expand=True)
+        # self.frame2.pack(side="top", fill="both", expand=True)
 
         #self.b1 = Button(frame_nrw_ori, text="Start", command=self.toggle)
         self.b1 = tk.Button(self.frame1, text="Start", padx=20, command=self.toggle)
@@ -71,7 +71,7 @@ class NRW_ORI:
         # Create Canvas
         global canvas
         canvas = FigureCanvasTkAgg(figure, master=frame_nrw_ori)
-        canvas.get_tk_widget().pack(side='top', fill='both')
+        canvas.get_tk_widget().pack(side='left', fill='both')
         canvas.mpl_connect('draw_event', self.drawing_done)
 
 
